@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Greeting Card</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Weekend!</h1>
+        <p class="instruction" id="ins">Click on the image below to reveal your card</p>
+        
+        <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
+             alt="Greeting Card" 
+             class="card-image"
+             id="cardTrigger">
+        
+        <div class="card-content" id="cardContent">
+            <h2>To Aprilia Bunga Safira</h2>
+            <p>Happy weekend adek</p>
+            <p>Gini deh, bayangin aja kita lagi nonton drakor yang episodenya nggak kelar-kelar. Bedanya, ini versi real life, dan jarak itu kayak si antagonis nyebelin yang gangguin terus. Kadang kangennya tuh udah kayak pengen nge-warp aja ke sana, nyamperin langsung. Tapi ya gimana, namanya juga LDR, 'Long Distance Relationship', bukan 'Lets Drama Relationship' tiap hari. Kita mah modal video call tiap malem, cerita ini itu kayak lagi ngobrol di warung kopi deket rumah. Untungnya, meski beda pulau, sinyal cinta kita tetep kuat kayak sinyal 5G di Semarang waktu lagi nggak ujan. Yaudah lah ya, intinya mah sabar aja kayak nungguin ending drakor favorit, pasti happy ending kok, ketemu juga akhirnya.</p>
+            <p>semangat teruss yaa ,kamu hebat!!!🫶🏻</p>
+
+            <p class="signature">With warmest regards,<br>Alwiii</p>
+            
+            <div class="gallery" id="gallery">
+                <h3>Memories</h3>
+                
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <video id="local-video">
+                            <source src="video.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung tag video.
+                        </video>
+                    </div>
+                    
+                    <div class="video-controls">
+                        <button id="play-video">Play</button>
+                        <button id="pause-video">Pause</button>
+                        <div class="volume-control">
+                            <span>Volume:</span>
+                            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Video controls
+        const video = document.getElementById('local-video');
+        const playBtn = document.getElementById('play-video');
+        const pauseBtn = document.getElementById('pause-video');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        playBtn.addEventListener('click', function() {
+            video.play();
+        });
+
+        pauseBtn.addEventListener('click', function() {
+            video.pause();
+        });
+
+        volumeSlider.addEventListener('input', function() {
+            video.volume = this.value / 100;
+        });
+
+        // Card elements
+        const cardTrigger = document.getElementById('cardTrigger');
+        const cardContent = document.getElementById('cardContent');
+        const gallery = document.getElementById('gallery');
+        const ins = document.getElementById('ins');
+        
+        // Create confetti elements
+        function createConfetti() {
+            const colors = ['#111', '#333', '#555', '#777', '#999', '#bbb', '#ddd'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 8 + 4 + 'px';
+                confetti.style.height = Math.random() * 8 + 4 + 'px';
+                document.body.appendChild(confetti);
+                
+                // Animate confetti
+                setTimeout(() => {
+                    confetti.style.opacity = '1';
+                    confetti.style.transform = `translate(${Math.random() * 100 - 50}px, ${Math.random() * 200 + 100}px) rotate(${Math.random() * 360}deg)`;
+                    confetti.style.transition = `all ${Math.random() * 3 + 2}s ease`;
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        confetti.style.opacity = '0';
+                        setTimeout(() => {
+                            confetti.remove();
+                        }, 1000);
+                    }, 3000);
+                }, 0);
+            }
+        }
+        
+        cardTrigger.addEventListener('click', function() {
+            // Hide the trigger image
+            this.style.display = 'none';
+            
+            // Hide instruction
+            ins.style.display = 'none';
+            
+            // Show the card content
+            cardContent.style.display = 'block';
+            
+            // Show the gallery
+            gallery.style.display = 'block';
+            
+            // Change background color
+            document.body.style.backgroundColor = '#eee';
+            
+            // Create confetti effect
+            createConfetti();
+        });
+    </script>
+</body>
+</html>
